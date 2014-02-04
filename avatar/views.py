@@ -218,16 +218,19 @@ def avatar(request, username, id, template_name="avatar/avatar.html"):
     })
 
 
-def render_primary(request, user=None, size=settings.AVATAR_DEFAULT_SIZE):
-    size = int(size)
-    avatar = get_primary_avatar(user, size=size)
+def render_primary(request, user=None, width=settings.AVATAR_DEFAULT_SIZE, height=False):
+    if not height:
+        height = width
+    width = int(width)
+    height = int(height)
+    avatar = get_primary_avatar(user, width=width, height=height)
     if avatar:
         # FIXME: later, add an option to render the resized avatar dynamically
         # instead of redirecting to an already created static file. This could
         # be useful in certain situations, particulary if there is a CDN and
         # we want to minimize the storage usage on our static server, letting
         # the CDN store those files instead
-        url = avatar.avatar_url(size)
+        url = avatar.avatar_url(width, height)
     else:
         url = get_default_avatar_url()
 

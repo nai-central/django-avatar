@@ -22,8 +22,8 @@ class AvatarConf(AppConf):
     CACHE_TIMEOUT = 60 * 60
     STORAGE = settings.DEFAULT_FILE_STORAGE
     CLEANUP_DELETED = False
-    AUTO_GENERATE_SIZES = (DEFAULT_SIZE,)
+    AUTO_GENERATE_SIZES = (DEFAULT_SIZE, DEFAULT_SIZE)
 
     def configure_auto_generate_avatar_sizes(self, value):
         return value or getattr(settings, 'AUTO_GENERATE_AVATAR_SIZES',
-                                (self.DEFAULT_SIZE,))
+                                (self.DEFAULT_SIZE, self.DEFAULT_SIZE))
